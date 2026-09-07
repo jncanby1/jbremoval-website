@@ -19,6 +19,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>
+/* Motion failsafe: apply the hide-then-reveal guard only when JS + motion are
+   available; auto-remove it if scripts fail so content never stays hidden. */
+(function(){var d=document.documentElement;
+var r=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!r){d.classList.add('anim');setTimeout(function(){if(!window.__jbAnimReady)d.classList.remove('anim');},2500);}})();
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -211,5 +218,8 @@
 <script>
   document.getElementById('yr').textContent=new Date().getFullYear();
 </script>
+<script src="gsap.min.js"></script>
+<script src="ScrollTrigger.min.js"></script>
+<script src="animations.js"></script>
 </body>
 </html>

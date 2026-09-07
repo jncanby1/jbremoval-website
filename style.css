@@ -174,3 +174,76 @@ footer{border-top:1px solid var(--line);padding:34px 0 28px;color:var(--dim);fon
 
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+
+/* ============================================================
+   MOTION LAYER  (added for GSAP/ScrollTrigger enhancements)
+   All initial-hidden states are gated behind html.anim, which is
+   added by an inline <head> script only when JS runs AND the user
+   has not requested reduced motion. A 2.5s failsafe removes it if
+   scripts fail, so content is never permanently hidden. Raw HTML
+   (no JS) and reduced-motion users see everything, unanimated.
+   ============================================================ */
+
+/* --- pre-hide only the elements the motion layer actually animates --- */
+html.anim .phead .eyebrow,
+html.anim .phead h1,
+html.anim .phead .wrap > p:not(.eyebrow),
+html.anim .phead .trust .chip,
+html.anim .phead .cta-row > *,
+html.anim .sec-head,
+html.anim .svc,
+html.anim .value,
+html.anim .rev,
+html.anim .ba,
+html.anim .town,
+html.anim .steps .step,
+html.anim .final .eyebrow,
+html.anim .final h2,
+html.anim .final p,
+html.anim .final .cta-row,
+html.anim .two-col > *,
+html.anim .contact-grid > *{opacity:0}
+
+/* headline split into per-line blocks (fade-up, no clipping) */
+.phead h1 .l-line{display:block}
+
+/* --- three-step connecting rail / scroll progress indicator --- */
+.steps{position:relative}
+.steps-rail{position:absolute;left:-14px;top:6px;bottom:6px;width:2px;
+  background:var(--line);border-radius:2px;overflow:hidden}
+.steps-rail-fill{position:absolute;inset:0;transform:scaleY(0);transform-origin:top center;
+  background:linear-gradient(180deg,var(--gold),var(--gold-lt))}
+@media(max-width:560px){.steps-rail{left:-12px}}
+
+/* --- interactive before/after slider (progressive enhancement) --- */
+.ba-grid{align-items:start}
+.ba-slider{position:relative;overflow:hidden;aspect-ratio:3/2;background:var(--ink);
+  --pos:50%;cursor:ew-resize;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.ba-slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  pointer-events:none;-webkit-user-drag:none;user-select:none}
+.ba-slider .ba-reveal{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.ba-slider .ba-label{position:absolute;top:10px;font-size:10px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;padding:5px 10px;border-radius:100px;
+  background:rgba(11,11,12,.82);backdrop-filter:blur(4px);pointer-events:none;z-index:3}
+.ba-slider .ba-label-before{left:10px;color:#E8877F;border:1px solid rgba(180,39,31,.5)}
+.ba-slider .ba-label-after{right:10px;color:#8FD9B4;border:1px solid rgba(76,175,125,.45)}
+.ba-slider .ba-handle{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;
+  background:rgba(242,239,233,.92);transform:translateX(-1px);z-index:2;pointer-events:none}
+.ba-slider .ba-grip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:38px;height:38px;border-radius:50%;background:var(--gold);color:#0B0B0C;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.ba-slider:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* --- subtle hover interactions (transform/shadow/border only — no reflow) --- */
+.svc{transition:background .2s ease,box-shadow .2s ease}
+.svc:hover{background:var(--slate);box-shadow:inset 0 0 0 1px var(--line-gold)}
+.svc-icon{transition:transform .25s ease,background .25s ease}
+.svc:hover .svc-icon{transform:translateY(-2px) scale(1.06);background:rgba(201,150,58,.2)}
+.value{transition:transform .2s ease}
+.value:hover{transform:translateY(-3px)}
+.rev{transition:transform .2s ease,box-shadow .2s ease}
+.rev:hover{transform:translateY(-3px);box-shadow:0 14px 32px -22px rgba(0,0,0,.75)}
+.ba{transition:transform .2s ease,box-shadow .2s ease}
+.ba:hover{transform:translateY(-3px);box-shadow:0 18px 42px -24px rgba(0,0,0,.8)}
+.btn-gold{box-shadow:0 6px 18px -12px rgba(201,150,58,.75)}
+.btn-gold:hover{box-shadow:0 10px 24px -10px rgba(201,150,58,.85)}
