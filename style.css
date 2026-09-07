@@ -57,10 +57,14 @@ nav a[aria-current=page]{color:var(--gold)}
 
 /* ---------- page header ---------- */
 .phead{padding:52px 0 34px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-.phead:before{content:"";position:absolute;inset:0;background:radial-gradient(620px 300px at 18% 10%,rgba(201,150,58,.11),transparent 70%)}
-.phead .wrap{position:relative}
+.phead:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(620px 300px at 18% 10%,rgba(201,150,58,.11),transparent 70%)}
+.phead .wrap{position:relative;z-index:2}
 .phead h1{font-size:clamp(38px,7.5vw,72px);margin:14px 0 0}
 .phead p{color:var(--ash);max-width:62ch;margin-top:15px;font-size:17px}
+/* homepage hero background video — scoped to .has-video so other page headers are unchanged */
+.phead.has-video .phead-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.4;pointer-events:none}
+.phead.has-video:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,11,12,.30) 0%,rgba(11,11,12,.55) 55%,rgba(11,11,12,.78) 100%)}
+@media(prefers-reduced-motion:reduce){.phead.has-video .phead-video{display:none}}
 
 /* ---------- sections ---------- */
 section{padding:58px 0}
